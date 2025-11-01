@@ -25,13 +25,20 @@ jobs:
           make install
 
       - name: Run linter and pytest
-        run: |
-          make check
+        run: make check
 
-      - name: Upload coverage to Code Climate
-        uses: codeclimate/test-reporter-action@v1.0.0
-        if: github.ref_name == 'main'
-        with:
-          coverageCommand: make test-coverage
+      - name: Download Code Climate test-reporter
+        run: |
+          curl -L https://github.com/codeclimate/test-reporter/releases/latest/download/cc-test-reporter-linux-amd64 \
+            -o ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+
+      - name: Run coverage
+        run: |
+          ./cc-test-reporter before-build
+          make test-coverage
+          ./cc-test-reporter after-build --exit-code $?
+
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        if: github.ref_name == 'main'
