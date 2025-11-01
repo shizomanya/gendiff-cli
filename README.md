@@ -9,7 +9,7 @@ Calculate the difference between two files
 <a href="#about">About</a> •
 <a href="#installation">Installation</a> •
 <a href="#usage">Usage</a> •
-<a href="#demo">Demo</a> •
+<a href="#demo">Demo</a> 
 </p>
 </div>
 
